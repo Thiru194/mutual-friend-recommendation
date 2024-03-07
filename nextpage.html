@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <title>Next Page</title>
+    <style>
+        body {
+            
+            background-image: url('bg_img1.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .friend-card {
+            width: 200px; /* Adjust the width as needed */
+            height: 300px;
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: white;
+            /* background: rgb(34,193,195);
+background: linear-gradient(0deg, rgb(34, 195, 55) 0%, rgba(116,253,45,1) 100%); */
+            border-radius: 10px;
+        }
+
+        .card-header {
+            width: 100%;
+            height: 200px; /* Adjust the height as needed */
+            background-color: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .friend-image {
+            width: 100%; /* Make the image take the full width of the card header */
+            height: 100%; /* Make the image take the full height of the card header */
+            border-radius: 5px;
+        }
+
+        .friend-name {
+            font-family: "Audiowide", sans-serif;
+            font-size: 30px;
+            font-weight: bolder;
+            margin-top:10px;
+            color: #333; /* Set text color */
+        }
+
+        .mutual-friends-text {
+            font-size: large;
+            color: #333; /* Set text color */
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="commonFriendsContainer"></div>
+
+    <script>
+        // Parse the URL parameters to get the common friends
+        const urlParams = new URLSearchParams(window.location.search);
+        const friendsParam = urlParams.get('friends');
+        const commonFriendsArray = JSON.parse(decodeURIComponent(friendsParam));
+
+        // Display common friends on the page
+        const commonFriendsContainer = document.getElementById('commonFriendsContainer');
+        commonFriendsArray.forEach(friend => {
+            const friendCard = document.createElement('div');
+            friendCard.className = 'friend-card';
+
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
+
+            // Replace the URL with your online image URL
+            const imgPath = 'https://img.freepik.com/premium-photo/premium-user-interface-icon-3d-rendering-isolated-background_150525-2529.jpg?w=740'; 
+            
+            const friendImage = document.createElement('img');
+            friendImage.src = imgPath;
+            friendImage.alt = friend;
+            friendImage.className = 'friend-image';
+
+            const friendName = document.createElement('p');
+            friendName.innerText = friend;
+            friendName.className = 'friend-name';
+
+            const mutualFriendsText = document.createElement('p');
+            mutualFriendsText.innerText = 'Suggested Mutual Friends';
+            mutualFriendsText.className = 'mutual-friends-text';
+
+            cardHeader.appendChild(friendImage);
+            friendCard.appendChild(cardHeader);
+            friendCard.appendChild(friendName);
+            friendCard.appendChild(mutualFriendsText);
+            commonFriendsContainer.appendChild(friendCard);
+        });
+    </script>
+</body>
+</html>
+
